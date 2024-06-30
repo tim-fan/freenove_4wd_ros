@@ -20,7 +20,7 @@ Clone/build in a colcon workspace:
 
 ```bash
 mkdir -p colcon_ws/src && cd colcon_ws/src
-git clone git@github.com:tim-fan/freenove_4wd_ros.git
+git clone https://github.com/tim-fan/freenove_4wd_ros.git
 cd ..
 rosdep install --from-paths src --ignore-src
 colcon build
