@@ -2,7 +2,7 @@
 
 ROS driver for controlling [Freenove 4WD Smart Car Kit for Raspberry Pi](https://github.com/Freenove/Freenove_4WD_Smart_Car_Kit_for_Raspberry_Pi/tree/master?tab=readme-ov-file#freenove-4wd-smart-car-kit-for-raspberry-pi) via [ROS](https://www.ros.org/).
 
-<img src='doc/car.png' width='30%'/>
+<img src='doc/car.png' />
 
 With this driver, the car can be controlled by publishing a `geometry_msgs/msg/Twist` message to the `/cmd_vel` topic.
 
