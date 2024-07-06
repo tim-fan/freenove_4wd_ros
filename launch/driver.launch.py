@@ -17,6 +17,7 @@ def generate_launch_description():
         launch_ros.actions.Node(
             package='freenove_4wd_ros', executable='driver',
             name='freenove_driver',
+            output='screen',
             parameters=[config_filepath],
         ),
     ])
