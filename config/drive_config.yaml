@@ -5,11 +5,12 @@
     max_speed: 0.4
 
     # motor channels
-    rear_right_fwd_channel    : 1
-    rear_right_bkwd_channel   : 0
-    front_right_fwd_channel   : 2
-    front_right_bkwd_channel  : 3
-    front_left_fwd_channel    : 5
-    front_left_bkwd_channel   : 4
-    rear_left_fwd_channel     : 7
-    rear_left_bkwd_channel    : 6
+    front_left_bkwd_channel  : 1
+    front_left_fwd_channel   : 0
+    rear_left_bkwd_channel   : 2
+    rear_left_fwd_channel    : 3
+    rear_right_bkwd_channel  : 5
+    rear_right_fwd_channel   : 4
+    front_right_bkwd_channel : 7
+    front_right_fwd_channel  : 6
+

@@ -27,9 +27,23 @@ colcon build
 source install/setup.bash
 ```
 
+## Run
+
+To launch the driver by itself:
+
+```bash
+ros2 launch freenove_4wd_ros driver.launch.py
+```
+
+To run with gamepad controller, first plug controller to RPi USB, then:
+
+```bash
+ros2 launch freenove_4wd_ros gamepad_teleop.launch.py
+```
+
 ## Calibrate, Configure, Test
 
-[drive_config.yaml](./config/drive_config.yaml) contains parameters related to motor channel configuration, and motor velocity scaling. The default parameters work on my platform, but may require tuning for your platform.
+[drive_config.yaml](./config/drive_config.yaml) contains parameters related to motor channel configuration, and motor velocity scaling. I assume the default parameters should work for all Freenove 4wd cars, but the parameters are there if you need to tweak them. I also provide a config [drive_config_backward.yaml](./config/drive_config_backward.yaml) which can be used if you want the robot to drive in the reverse direction (this is my use-case).
 
 To determine the appropriate value for `max_speed`, you can run 
 
@@ -46,21 +60,3 @@ ros2 run freenove_4wd_ros test_motors
 ```
 
 Note that script uses the channel configuration defined in [`freenove4wd/__init__.py`](freenove_4wd_ros/freenove4wd/__init__.py), not the config from the yaml file.
-
-
-
-## Run
-
-To launch the driver by itself:
-
-```bash
-ros2 launch freenove_4wd_ros driver.launch.py
-```
-
-To run with gamepad controller, first plug controller to RPi USB, then:
-
-```bash
-ros2 launch freenove_4wd_ros gamepad_teleop.launch.py
-```
-
-
