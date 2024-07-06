@@ -1,7 +1,7 @@
 from .PCA9685 import PCA9685
 import time
 from typing import Tuple
-from math import pi, copysign
+from math import pi, isclose
 
 MAX_DUTY = 4095 # copied from freenove code. Not sure what happens if exceeded
 DEG2RAD = pi/180
@@ -33,6 +33,13 @@ class Motor:
         self._pwm = pwm
         self._speed_scale = MAX_DUTY / max_speed  # scale factor to convert m/s to duty
         self._name = name # for debugging
+
+    def set_brake(self):
+        """
+        Apply brake
+        """
+        self._pwm.setMotorPwm(self.fwd_channel, MAX_DUTY)
+        self._pwm.setMotorPwm(self.bkwd_channel, MAX_DUTY)
     
     def set_speed(self, speed:float):
         """
@@ -44,20 +51,14 @@ class Motor:
         duty = int(duty) # can only set int-valued duty
 
         # uncomment for debug
-        print(f"{self._name}:\t{speed=},\t{duty=}")
+        # print(f"{self._name}:\t{speed=},\t{duty=}")
 
         if speed > 0:
             fwd_duty = duty
             bkwd_duty = 0
-        elif speed < 0:
+        else :
             fwd_duty = 0
             bkwd_duty = duty
-        else:
-            # zero speed, set both to max duty
-            # (motor brake? the example did this
-            #  so I'm copying)
-            fwd_duty = MAX_DUTY
-            bkwd_duty = MAX_DUTY
         
         self._pwm.setMotorPwm(self.fwd_channel, fwd_duty)
         self._pwm.setMotorPwm(self.bkwd_channel, bkwd_duty)
@@ -168,6 +169,14 @@ class DriveSystem:
         Forward velocity will be limited if required to
         prevent exceeding motor speed limits.
         """
+
+        # special case - on zero command, set all motors to brake
+        if isclose(linear, 0) and isclose(angular,0):
+            self.motors.front_left.set_brake()
+            self.motors.rear_left.set_brake()
+            self.motors.front_right.set_brake()
+            self.motors.rear_right.set_brake()
+            return
 
         # if angular vel less than 5 degrees per sec, treat as 
         # straight line driving
